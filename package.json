@@ -1,0 +1,32 @@
+{
+  "name": "jkey",
+  "version": "0.1.0",
+  "description": "Webapp to key",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesmarquez/jkey.git"
+  },
+  "keywords": [
+    "js",
+    "node",
+    "next"
+  ],
+  "author": "Jesus Marquez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jesmarquez/jkey/issues"
+  },
+  "homepage": "https://github.com/jesmarquez/jkey#readme",
+  "dependencies": {
+    "next": "^3.0.1-beta.13",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
