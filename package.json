@@ -27,6 +27,7 @@
   "dependencies": {
     "next": "^3.0.1-beta.13",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }
