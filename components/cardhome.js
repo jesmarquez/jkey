@@ -13,7 +13,7 @@ const CardHome = () => (
     />
     <CardActions>
       <FlatButton label="SignUp" />
-      <Link href="/login"><a><FlatButton label="SignIn" /></a></Link>
+      <Link prefetch href="/login"><a><FlatButton label="SignIn" /></a></Link>
     </CardActions>
     <CardText expandable={true}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.

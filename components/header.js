@@ -3,14 +3,27 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import Package from '../package'
+import inlineCSS from '../css/main.scss'
 
 export default class extends React.Component {
 
+  static propTypes() {
+    return {
+      session: React.propTypes.object.isRequired
+    }
+  }
+
   render() {
     let stylesheet
-    // In development, serve CSS inline (with live reloading) with webpack
-    // NB: Not using dangerouslySetInnerHTML will cause problems with some CSS
-    stylesheet=<link href="/static/styles.css" rel="stylesheet" />
+    if (process.env.NODE_ENV === 'production') {
+      // In production, serve pre-built CSS file from /assets/{version}/main.css
+      let pathToCSS = '/assets/' + Package.version + '/main.css'
+      stylesheet = <link rel="stylesheet" type="text/css" href={pathToCSS}/>
+    } else {
+      // In development, serve CSS inline (with live reloading) with webpack
+      // NB: Not using dangerouslySetInnerHTML will cause problems with some CSS
+      stylesheet = <style dangerouslySetInnerHTML={{__html: inlineCSS}}/>
+    }
 
     return (
       <header>
