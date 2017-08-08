@@ -7,7 +7,6 @@ export default class extends React.Component {
   static async getInitialProps({req}) {
     console.log('Here!'+req)
     const session = new Session({req})
-    return {session: await session.getSession()}
+    return {session: await session.getSession(), userAgent: req.headers['user-agent']}
   }
-
 }
