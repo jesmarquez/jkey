@@ -4,6 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Page from '../components/page'
 import Layout from '../components/layout'
 import Session from '../util/session'
+import CardSignUpEmail from '../components/cardsignemail'
 
 export default class extends Page {
   static async getInitialProps({req}) {
@@ -27,10 +28,24 @@ export default class extends Page {
 
   constructor(props) {
     super(props)
-
     this.state = {
       session: this.props.session,
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault()
+
+    const session = new Session()
+    session.signin(this.state.email)
+    .then(() => {
+      this.props.url.push('/auth/check-email')
+    })
+    .catch(err => {
+      // @FIXME Handle error
+      console.log(err)
+    })
   }
 
   render() {
@@ -41,7 +56,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-
+          <CardSignUpEmail onSubmit={this.handleSubmit}/>
         </Layout>
       </MuiThemeProvider>
     )
