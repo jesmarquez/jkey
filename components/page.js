@@ -2,11 +2,13 @@ import React from 'react'
 import Session from '../util/session'
 
 export default class extends React.Component {
-
   // Expose session to all pages
   static async getInitialProps({req}) {
-    console.log('Here!'+req)
+    console.log('getInitialProps - pagejs!')
     const session = new Session({req})
-    return {session: await session.getSession(), userAgent: req.headers['user-agent']}
+    return {
+        session: await session.getSession(),
+        userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+    }
   }
 }

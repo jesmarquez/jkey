@@ -12,7 +12,7 @@ const CardHome = () => (
       showExpandableButton={true}
     />
     <CardActions>
-      <FlatButton label="SignUp" />
+      <Link prefetch href="/signup"><a><FlatButton label="SignUp" /></a></Link>
       <Link prefetch href="/login"><a><FlatButton label="SignIn" /></a></Link>
     </CardActions>
     <CardText expandable={true}>
