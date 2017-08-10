@@ -117,12 +117,12 @@ exports.configure = ({
     const email = req.body.email || null
 
     if (!email || email.trim() === '') {
-      return app.render(req, res, pages + '/signin', req.params)
+      return app.render(req, res, pages + '/signup', req.params)
     }
 
     const token = uuid()
     const verificationUrl = (serverUrl || 'http://' + req.headers.host) + path + '/email/signin/' + token
-
+    console.log('url: '+ verificationUrl)
     // Create verification token save it to database
     // @FIXME Improve error handling
     User.one({email: email}, function (err, user) {
@@ -158,7 +158,7 @@ exports.configure = ({
         })
       }
     })
-
+    const queryParams = { link: verificationUrl }
     return app.render(req, res, pages + '/check-email', req.params)
   })
 

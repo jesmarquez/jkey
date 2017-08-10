@@ -1,3 +1,4 @@
+import '../components/tap_events'
 import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -5,6 +6,7 @@ import Page from '../components/page'
 import Layout from '../components/layout'
 import Session from '../util/session'
 import CardSignUpEmail from '../components/cardsignemail'
+import Router from 'next/router'
 
 export default class extends Page {
   static async getInitialProps({req}) {
@@ -40,7 +42,7 @@ export default class extends Page {
     const session = new Session()
     session.signin(this.state.email)
     .then(() => {
-      this.props.url.push('/auth/check-email')
+      Router.push('/auth/check-email')
     })
     .catch(err => {
       // @FIXME Handle error

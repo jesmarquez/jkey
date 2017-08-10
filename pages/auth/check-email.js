@@ -6,6 +6,10 @@ import Page from '../../components/page'
 import Layout from '../../components/layout'
 
 export default class extends Page {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     const muiTheme = getMuiTheme({
       userAgent: this.props.userAgent,

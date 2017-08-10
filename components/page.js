@@ -6,6 +6,7 @@ export default class extends React.Component {
 static async getInitialProps({req}) {
   console.log('getInitialProps - pagejs!')
   const session = new Session({req})
+  
   return {
     session: await session.getSession(),
     userAgent: req ? req.headers['user-agent'] : navigator.userAgent,

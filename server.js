@@ -146,6 +146,10 @@ app.prepare()
       throw err
     }
     console.log('> Ready on http://localhost:' + process.env.PORT + ' [' + process.env.NODE_ENV + ']')
+    console.log('EMAIL_SERVER:' + process.env.EMAIL_SERVER)
+    console.log('EMAIL_PORT:' + process.env.EMAIL_PORT)
+    console.log('EMAIL_USERNAME:' + process.env.EMAIL_USERNAME)
+    console.log('EMAIL_PASSWORD:' + process.env.EMAIL_PASSWORD)
   })
 })
 .catch(err => {
