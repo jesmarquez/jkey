@@ -113,6 +113,7 @@ exports.configure = ({
 
   // On post request, redirect to page with instrutions to check email for link
   server.post(path + '/email/signin', (req, res) => {
+    console.log('init email signin!')
     const email = req.body.email || null
 
     if (!email || email.trim() === '') {
@@ -203,6 +204,7 @@ exports.configure = ({
 
 // @TODO Argument validation
 function sendVerificationEmail({mailserver, fromEmail, toEmail, url}) {
+  console.log('Send email!')
   nodemailer
   .createTransport(mailserver)
   .sendMail({

@@ -15,7 +15,7 @@ const CardSignUpEmail = ({onSubmit}) => (
           actAsExpander={false}
           showExpandableButton={false}
         />
-        <form method="post" action="/auth/email/signin" onSubmit={onSubmit}>
+        <form method="post" action="/email/signin" onSubmit={onSubmit}>
           <div className="field-line">
             <TextField 
               floatingLabelText="email"
