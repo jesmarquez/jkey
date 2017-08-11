@@ -14,11 +14,13 @@ export default class extends Page {
     const muiTheme = getMuiTheme({
       userAgent: this.props.userAgent,
      })
+    console.log(this.props.link)
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.props.session}>
           <h2>Revisa tu email</h2>
           <p>Se ha enviado un email con un link para entrar.</p>
+
         </Layout>
       </MuiThemeProvider>
     )

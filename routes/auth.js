@@ -159,7 +159,7 @@ exports.configure = ({
       }
     })
     const queryParams = { link: verificationUrl }
-    return app.render(req, res, pages + '/check-email', req.params)
+    return app.render(req, res, pages + '/check-email', queryParams)
   })
 
   server.get(path + '/email/signin/:token', (req, res) => {
