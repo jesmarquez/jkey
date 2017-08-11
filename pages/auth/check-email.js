@@ -4,6 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Page from '../../components/page'
 import Layout from '../../components/layout'
+import Link from 'next/link'
 
 export default class extends Page {
   constructor(props) {
@@ -14,13 +15,14 @@ export default class extends Page {
     const muiTheme = getMuiTheme({
       userAgent: this.props.userAgent,
      })
-    console.log(this.props.link)
+    console.log('URL' + this.props.link)
+    const url = this.props.link
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.props.session}>
           <h2>Revisa tu email</h2>
           <p>Se ha enviado un email con un link para entrar.</p>
-
+          <Link href={`${url}`}><a>SignIn</a></Link>
         </Layout>
       </MuiThemeProvider>
     )

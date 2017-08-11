@@ -113,7 +113,7 @@ exports.configure = ({
 
   // On post request, redirect to page with instrutions to check email for link
   server.post(path + '/email/signin', (req, res) => {
-    console.log('init email signin!')
+    
     const email = req.body.email || null
 
     if (!email || email.trim() === '') {
@@ -122,7 +122,6 @@ exports.configure = ({
 
     const token = uuid()
     const verificationUrl = (serverUrl || 'http://' + req.headers.host) + path + '/email/signin/' + token
-    console.log('url: '+ verificationUrl)
     // Create verification token save it to database
     // @FIXME Improve error handling
     User.one({email: email}, function (err, user) {
@@ -164,7 +163,7 @@ exports.configure = ({
 
   server.get(path + '/email/signin/:token', (req, res) => {
     if (!req.params.token) {
-      return res.redirect(path + '/signin')
+      return res.redirect('/signup')
     }
 
     // Look up user by token
@@ -186,7 +185,7 @@ exports.configure = ({
             if (err) {
               return res.redirect(path + '/error/email')
             }
-            return res.redirect(path + '/signin?action=signin_email')
+            return res.redirect('/signup?action=signin_email')
           })
         })
       } else {
