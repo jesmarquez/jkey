@@ -5,7 +5,7 @@ import Link from 'next/link'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const CardSignUpEmail = ({onSubmit}) => (
+const CardSignUpEmail = ({onSubmit, csrfToken}) => (
   <div className="container">
     <Card>
       <div className="container">
@@ -16,6 +16,7 @@ const CardSignUpEmail = ({onSubmit}) => (
           showExpandableButton={false}
         />
         <form method="post" action="/auth/email/signin" onSubmit={onSubmit}>
+          <input name="_csrf" type="hidden" value={csrfToken}/>
           <div className="field-line">
             <TextField 
               floatingLabelText="email"

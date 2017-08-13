@@ -16,3 +16,8 @@ coverage
 test/**/out
 .DS_Store
 
+# Workspace files are user-specific
+*.sublime-workspace
+
+# Project files
+*.sublime-project
