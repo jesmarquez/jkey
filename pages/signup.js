@@ -58,7 +58,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-          <CardSignUpEmail onSubmit={this.handleSubmit}/>
+          <CardSignUpEmail onSubmit={this.handleSubmit} {this.state.email} {this.state.session.csrfToken}/>
         </Layout>
       </MuiThemeProvider>
     )

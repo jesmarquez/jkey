@@ -7,6 +7,7 @@ node_modules
 
 #logs
 *.log
+npm-debug.*
 
 #coverage
 .nyc_output
@@ -16,3 +17,14 @@ coverage
 test/**/out
 .DS_Store
 
+# dotenv environment variables file
+.env
+
+# Workspace files are user-specified
+*.sublime-workspace
+
+# Project files
+*.sublime-project
+
+# Next
+.next/
