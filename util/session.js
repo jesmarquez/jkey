@@ -15,6 +15,7 @@ export default class Session {
     this._session = {}
     try {
       if (req) {
+        console.log('constructor - session class - server')
         // If running on server we can access the server side environment
         this._session = {
           csrfToken: req.connection._httpMessage.locals._csrf
@@ -24,9 +25,9 @@ export default class Session {
           this._session.user = req.user
         }
       } else {
+        console.log('constructor - session class -client')
         // If running on client, attempt to load session from localStorage
         this._session = this._getLocalStore('session')
-        console.log('running client!')
       }
     } catch (err) {
       // Handle if error reading from localStorage or server state is safe to
@@ -64,7 +65,6 @@ export default class Session {
   // This allows us to use XMLHttpRequest when running on the client to fetch it
   // Note: We use XMLHttpRequest instead of fetch so auth cookies are passed
   async getSession(forceUpdate) {
-    console.log('getSession')
     // If running on the server, return session as will be loaded in constructor
     if (typeof window === 'undefined') {
       return new Promise(resolve => {
@@ -206,5 +206,4 @@ export default class Session {
       return false
     }
   }
-
 }
