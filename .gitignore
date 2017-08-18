@@ -26,5 +26,6 @@ test/**/out
 # Project files
 *.sublime-project
 
+
 # Next
 .next/

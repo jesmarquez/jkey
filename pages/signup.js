@@ -14,6 +14,7 @@ export default class extends Page {
     // server by passing 'true' to getSession. This page is the destination
     // page after logging or linking/unlinking accounts so avoids any weird
     // edge cases.
+    console.log('getInitialProps - signup page')
     const session = new Session({req})
     return {session: await session.getSession(true)}
   }
@@ -21,6 +22,7 @@ export default class extends Page {
   async componentDidMount() {
     // Get latest session data after rendering on client
     // Any page that is specified as the oauth callback should do this
+    console.log('componentDidMount - signup page')
     const session = new Session()
     this.state = {
       email: this.state.email,
@@ -34,6 +36,7 @@ export default class extends Page {
       session: this.props.session,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    console.log('constructor - signup page')
   }
 
   async handleSubmit(event) {
@@ -58,7 +61,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-          <CardSignUpEmail onSubmit={this.handleSubmit} {this.state.email} {this.state.session.csrfToken}/>
+          <CardSignUpEmail onSubmit={this.handleSubmit} email={this.state.email} csrfToken={this.state.session.csrfToken}/>
         </Layout>
       </MuiThemeProvider>
     )
