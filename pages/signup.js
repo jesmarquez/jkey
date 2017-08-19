@@ -5,8 +5,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Page from '../components/page'
 import Layout from '../components/layout'
 import Session from '../util/session'
-import CardSignUpEmail from '../components/cardsignemail'
 import Router from 'next/router'
+import {Card, CardActions, CardHeader} from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
+import Link from 'next/link'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export default class extends Page {
   static async getInitialProps({req}) {
@@ -61,7 +65,35 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-          <CardSignUpEmail onSubmit={this.handleSubmit} email={this.state.email} csrfToken={this.state.session.csrfToken}/>
+          <Card>
+            <div className="container">
+              <CardHeader
+                title="Registro por email"
+                subtitle="Email"
+                actAsExpander={false}
+                showExpandableButton={false}
+              />
+              <form method="post" action="/auth/email/signin" onSubmit={this.handleSubmit}>
+                <input name="_csrf" type="hidden" value={this.state.session.csrfToken}/>
+                <div className="field-line">
+                  <TextField 
+                    floatingLabelText="email"
+                    name="email"
+                    type="email"
+                    value={this.state.email}
+                  />
+                </div>
+                <br />
+                <div className="field-line">
+                  <RaisedButton
+                    type="submit"
+                    label="Enviar email"
+                    primary
+                  />
+                </div>
+              </form>
+            </div>
+          </Card>
         </Layout>
       </MuiThemeProvider>
     )
