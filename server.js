@@ -32,10 +32,10 @@ process.env.PORT = process.env.PORT || 80
 // Configure a database to store user profiles and email sign in tokens
 // Database connection string for ORM (e.g. MongoDB/Amazon Redshift/SQL DB…)
 // By default it uses SQL Lite to create a DB in /tmp/nextjs-starter.db
-process.env.DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'sqlite://tmp/jkey.db'
+process.env.DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'sqlite:///tmp/jkey.db'
 
 // Secret used to encrypt session data stored on the server
-process.env.SESSION_SECRET = process.env.SESSION_SECRET || 'change-me'
+process.env.SESSION_SECRET = process.env.SESSION_SECRET || 'j05122408'
 
 // If EMAIL_USERNAME and EMAIL_PASSWORD are configured use them to send email.
 // e.g. For a Google Mail account (@gmail.com) set EMAIL_SERVICE to 'gmail'
@@ -51,6 +51,8 @@ if (process.env.EMAIL_SERVER && process.env.EMAIL_USERNAME && process.env.EMAIL_
       pass: process.env.EMAIL_PASSWORD
     }
   })
+} else {
+  console.log('error mailserver')
 }
 
 const app = next({

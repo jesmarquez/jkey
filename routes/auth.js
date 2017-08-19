@@ -158,7 +158,9 @@ exports.configure = ({
       }
     })
     const queryParams = { link: verificationUrl }
-    return app.render(req, res, pages + '/check-email', queryParams)
+    //return app.render(req, res, pages + '/check-email', queryParams)
+    console.log(verificationUrl)
+    res.send('POST request to the signup')
   })
 
   server.get(path + '/email/signin/:token', (req, res) => {
@@ -204,6 +206,7 @@ exports.configure = ({
 // @TODO Argument validation
 function sendVerificationEmail({mailserver, fromEmail, toEmail, url}) {
   console.log('sendVerificationEmail!')
+  console.log(`fromEmail: ${fromEmail} toEmail:${toEmail} url:${url}`)
   nodemailer
   .createTransport(mailserver)
   .sendMail({

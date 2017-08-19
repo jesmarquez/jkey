@@ -37,10 +37,19 @@ export default class extends Page {
   constructor(props) {
     super(props)
     this.state = {
+      email:'',
       session: this.props.session,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
     console.log('constructor - signup page')
+  }
+
+  handleEmailChange(event) {
+    this.setState({
+      email: event.target.value.trim(),
+      session: this.state.session
+    })
   }
 
   async handleSubmit(event) {
@@ -48,9 +57,9 @@ export default class extends Page {
 
     const session = new Session()
     session.signin(this.state.email)
-    .then(() => {
-      Router.push('/auth/check-email')
-    })
+    //.then(() => {
+    //  Router.push('/auth/check-email')
+    //})
     .catch(err => {
       // @FIXME Handle error
       console.log(err)
@@ -81,6 +90,7 @@ export default class extends Page {
                     name="email"
                     type="email"
                     value={this.state.email}
+                    onChange={this.handleEmailChange} 
                   />
                 </div>
                 <br />
