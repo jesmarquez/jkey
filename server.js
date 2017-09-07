@@ -152,6 +152,7 @@ app.prepare()
     console.log('EMAIL_PORT:' + process.env.EMAIL_PORT)
     console.log('EMAIL_USERNAME:' + process.env.EMAIL_USERNAME)
     console.log('EMAIL_PASSWORD:' + process.env.EMAIL_PASSWORD)
+    console.log('DB_CONNECTION_STRING:' + process.env.DB_CONNECTION_STRING)
   })
 })
 .catch(err => {

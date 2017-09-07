@@ -1,6 +1,7 @@
 import '../components/tap_events'
 import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Page from '../components/page'
 import Layout from '../components/layout'
 import Lista from '../components/lista'
@@ -13,8 +14,13 @@ export default class extends Page {
     // server by passing 'true' to getSession. This page is the destination
     // page after logging or linking/unlinking accounts so avoids any weird
     // edge cases.
+    let props = []
+
     const session = new Session({req})
-    return {session: await session.getSession(true)}
+
+    props.session = await sesion.getSession(true);
+    props.userAgent = req ? req.headers['user-agent'] : navigator.userAgent 
+    return {props}
   }
 
   async componentDidMount() {
@@ -31,6 +37,7 @@ export default class extends Page {
     super(props)
     this.state = {
       session: this.props.session,
+      userAgent: this.props.userAgent,
     }
   
   }
