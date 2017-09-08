@@ -198,6 +198,7 @@ exports.configure = ({
 
   server.post(path + '/signout', (req, res) => {
     // Log user out by disassociating their account from the session
+    console.log('signout!')
     req.logout()
     res.redirect('/')
   })
