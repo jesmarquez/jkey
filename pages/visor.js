@@ -14,11 +14,12 @@ export default class extends Page {
     // server by passing 'true' to getSession. This page is the destination
     // page after logging or linking/unlinking accounts so avoids any weird
     // edge cases.
+    console.log('getInitialProps - visor page')
     let props = []
 
     const session = new Session({req})
 
-    props.session = await sesion.getSession(true);
+    props.session = await session.getSession(true)
     props.userAgent = req ? req.headers['user-agent'] : navigator.userAgent 
     return {props}
   }
@@ -26,6 +27,7 @@ export default class extends Page {
   async componentDidMount() {
     // Get latest session data after rendering on client
     // Any page that is specified as the oauth callback should do this
+    console.log('componentDidMount - visor page')
     const session = new Session()
     this.state = {
       email: this.state.email,
@@ -34,12 +36,12 @@ export default class extends Page {
   }
 
   constructor(props) {
+    console.log('constructor  - visor page')
     super(props)
     this.state = {
       session: this.props.session,
-      userAgent: this.props.userAgent,
     }
-  
+ 
   }
 
   render() {
@@ -47,11 +49,17 @@ export default class extends Page {
       userAgent: this.props.userAgent,
     })
 
+    if (this.state.session.user) {
+      let content = (<div><SearchBox /><Lista /></div>)
+    }
+    else {
+      let content = (<div></div>)
+    }
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-          <SearchBox />
-          <Lista />
+        {content}
         </Layout>
       </MuiThemeProvider>
     )
