@@ -59,7 +59,7 @@ export default class extends Page {
     console.log(this.state.session.user)
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Layout>
+        <Layout session={this.state.session}>
         {content}
         </Layout>
       </MuiThemeProvider>
