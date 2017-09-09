@@ -183,6 +183,7 @@ exports.configure = ({
             return res.redirect(path + '/error/email')
           }
           // Having validated to the token, we log the user with Passport
+          console.log(user)
           req.logIn(user, function (err) {
             if (err) {
               return res.redirect(path + '/error/email')

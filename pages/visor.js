@@ -15,13 +15,12 @@ export default class extends Page {
     // page after logging or linking/unlinking accounts so avoids any weird
     // edge cases.
     console.log('getInitialProps - visor page')
-    let props = []
-
     const session = new Session({req})
 
-    props.session = await session.getSession(true)
-    props.userAgent = req ? req.headers['user-agent'] : navigator.userAgent 
-    return {props}
+    return {
+      session: await session.getSession(true), 
+      userAgent: req ? req.headers['user-agent'] : navigator.userAgent 
+    }
   }
 
   async componentDidMount() {
@@ -33,6 +32,7 @@ export default class extends Page {
       email: this.state.email,
       session: await session.getSession(true)
     }
+    console.log(this.state.session)
   }
 
   constructor(props) {
@@ -50,16 +50,13 @@ export default class extends Page {
     })
 
     if (this.state.session.user) {
-      let content = (<div><SearchBox /><Lista /></div>)
-    }
-    else {
-      let content = (<div></div>)
+        let linkWithFacebook = <p><a className="button button-oauth button-facebook" href="/auth/oauth/facebook">Link with Facebook</a></p>
     }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-        {content}
+          <div><SearchBox /><Lista /></div>
         </Layout>
       </MuiThemeProvider>
     )
