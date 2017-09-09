@@ -41,7 +41,7 @@ export default class extends Page {
     this.state = {
       session: this.props.session,
     }
- 
+    console.log(this.state.session)
   }
 
   render() {
@@ -49,14 +49,16 @@ export default class extends Page {
       userAgent: this.props.userAgent,
     })
 
+    let content = <div></div>
+
     if (this.state.session.user) {
-        let linkWithFacebook = <p><a className="button button-oauth button-facebook" href="/auth/oauth/facebook">Link with Facebook</a></p>
+      content = <div><SearchBox /><Lista /></div>
     }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Layout>
-          <div><SearchBox /><Lista /></div>
+        <Layout session={this.state.session}>
+          {content}
         </Layout>
       </MuiThemeProvider>
     )
