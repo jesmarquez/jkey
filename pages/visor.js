@@ -7,6 +7,7 @@ import Layout from '../components/layout'
 import Lista from '../components/lista'
 import SearchBox from '../components/searchbox'
 import Session from '../util/session'
+import Router from 'next/router'
 
 export default class extends Page {
   static async getInitialProps({req}) {
@@ -27,7 +28,7 @@ export default class extends Page {
     this.state = {
       session: await session.getSession(true)
     }
-    console.log(this.state.session)
+    if (this.state.session.user == null) Router.push('/login')
   }
 
   constructor(props) {
@@ -37,6 +38,7 @@ export default class extends Page {
       session: this.props.session,
     }
     console.log('constructor - visor page')
+
   }
 
   render() {
