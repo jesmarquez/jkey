@@ -47,11 +47,7 @@ export default class AppBarMain extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      session: this.props.session,
-    }
     console.log('constructor - appbarmain')
-    console.log(this.state.session)
     this.handleOnChange.bind(this)
 
   }
@@ -59,7 +55,7 @@ export default class AppBarMain extends React.Component {
   handleOnChange(event, value) {
     console.log("handleOnChange!");
     console.log(value);
-    console.log(this.state.session);
+    console.log(this.props.session);
     /*
       loginMessage = (
         <form id="signout" method="post" action="/auth/signout" onSubmit={this.handleSubmit}>
@@ -97,15 +93,13 @@ export default class AppBarMain extends React.Component {
 
   render() {
     const session = this.props.session || null
-    console.log(session)
-    let temp = this.state.session
-    console.log(temp)
+
     return (
       <div>
         <AppBar
           title="JkEy"
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-          iconElementRight={session.user ? <Logged onChange={this.handleOnChange} /> : <Login />}
+          iconElementRight={session.user ? <Logged onChange={this.handleOnChange.bind(this)} /> : <Login />}
         />
       </div>
     );
