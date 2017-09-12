@@ -16,7 +16,10 @@ export default class extends Page {
     // page after logging or linking/unlinking accounts so avoids any weird
     // edge cases.
     const session = new Session({req})
-    return {session: await session.getSession(true)}
+    return {
+      session: await session.getSession(true),
+      userAgent: req ? req.headers['user-agent'] : navigator.userAgent
+    }
   }
 
   async componentDidMount() {
@@ -62,8 +65,8 @@ export default class extends Page {
 
   render() {
     const muiTheme = getMuiTheme({
-      userAgent: this.props.userAgent,
-    });
+      userAgent: this.props.userAgent
+    })
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
