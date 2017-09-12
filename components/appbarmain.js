@@ -49,24 +49,12 @@ export default class AppBarMain extends React.Component {
 
     console.log('constructor - appbarmain')
     this.handleOnChange.bind(this)
-
   }
 
-  handleOnChange(event, value) {
+  async handleOnChange(event, value) {
     console.log("handleOnChange!");
     console.log(value);
     console.log(this.props.session);
-    /*
-      loginMessage = (
-        <form id="signout" method="post" action="/auth/signout" onSubmit={this.handleSubmit}>
-          <input name="_csrf" type="hidden" value={session.csrfToken}/>
-          <p>
-            <Link prefetch href="/"><a className="home">Home</a></Link>Logged in as <strong><Link prefetch href="/auth/signin"><a>{session.user.name || session.user.email}</a></Link></strong>
-            <button type="submit">Sign out</button>
-          </p>
-        </form>
-      )
-    */
 
     if (value == 3) {
       console.log('Logout!')
@@ -78,13 +66,13 @@ export default class AppBarMain extends React.Component {
       let hiddenField = document.createElement("input")
       hiddenField.setAttribute("type", "hidden")
       hiddenField.setAttribute("name", "_csrf")
-      hiddenField.setAttribute("value", this.state.session.csrfToken)
+      hiddenField.setAttribute("value", this.props.session.csrfToken)
       form.appendChild(hiddenField)
 
       document.body.appendChild(form)
-      /*
+      
       const session = new Session()
-      await session.signout() */
+      await session.signout()
 
       // @FIXME next/router not working reliably  so using window.location
       window.location = '/'
@@ -102,6 +90,6 @@ export default class AppBarMain extends React.Component {
           iconElementRight={session.user ? <Logged onChange={this.handleOnChange.bind(this)} /> : <Login />}
         />
       </div>
-    );
+    )
   }
 }
