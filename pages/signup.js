@@ -14,13 +14,12 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 export default class extends Page {
   static async getInitialProps({req}) {
-    // On the sign in page we always force get the latest session data from the
-    // server by passing 'true' to getSession. This page is the destination
-    // page after logging or linking/unlinking accounts so avoids any weird
-    // edge cases.
     console.log('getInitialProps - signup page')
     const session = new Session({req})
-    return {session: await session.getSession(true)}
+    return {
+      userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+      session: await session.getSession(true)
+    }
   }
 
   async componentDidMount() {
@@ -73,7 +72,7 @@ export default class extends Page {
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Layout>
+        <Layout session={this.state.session}>
           <Card>
             <div className="container">
               <CardHeader
