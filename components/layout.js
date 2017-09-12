@@ -4,6 +4,11 @@ import Header from './header'
 
 export default class extends React.Component {
 
+  constructor(props) {
+    super(props)
+    
+  }
+
   static propTypes() {
     return {
       session: React.PropTypes.object.isRequired,

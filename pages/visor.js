@@ -10,10 +10,6 @@ import Session from '../util/session'
 
 export default class extends Page {
   static async getInitialProps({req}) {
-    // On the sign in page we always force get the latest session data from the
-    // server by passing 'true' to getSession. This page is the destination
-    // page after logging or linking/unlinking accounts so avoids any weird
-    // edge cases.
     console.log('getInitialProps - visor page')
     const session = new Session({req})
 
@@ -29,19 +25,18 @@ export default class extends Page {
     console.log('componentDidMount - visor page')
     const session = new Session()
     this.state = {
-      email: this.state.email,
       session: await session.getSession(true)
     }
     console.log(this.state.session)
   }
 
   constructor(props) {
-    console.log('constructor  - visor page')
     super(props)
+    
     this.state = {
       session: this.props.session,
     }
-    console.log(this.state.session)
+    console.log('constructor - visor page')
   }
 
   render() {
@@ -49,10 +44,13 @@ export default class extends Page {
       userAgent: this.props.userAgent,
     })
 
-    let content = <div></div>
+    let content
 
     if (this.state.session.user) {
       content = <div><SearchBox /><Lista /></div>
+    }
+    else {
+      content = <div></div>
     }
 
     return (
