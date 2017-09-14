@@ -56,9 +56,9 @@ export default class extends Page {
 
     const session = new Session()
     session.signin(this.state.email)
-    //.then(() => {
-    //  Router.push('/auth/check-email')
-    //})
+    .then(() => {
+      this.props.url.push('/auth/check-email')
+    })
     .catch(err => {
       // @FIXME Handle error
       console.log(err)
