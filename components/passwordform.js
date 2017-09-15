@@ -3,7 +3,7 @@ import { Card, CardHeader } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const PasswordForm = () => (
+const PasswordForm = ({csrfToken}) => (
   <div className="container">
     <Card>
       <div className="container">
@@ -13,7 +13,8 @@ const PasswordForm = () => (
             avatar="../static/key.png"
             actAsExpander={true}
         />
-        <form>
+        <form action="/savepassword" method="POST">
+          <input name="_csrf" type="hidden" value={csrfToken}/>
           <div className="field-line">
             <TextField 
               floatingLabelText="contraseña"

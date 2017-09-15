@@ -187,7 +187,7 @@ exports.configure = ({
             if (err) {
               return res.redirect(path + '/error/email')
             }
-            return res.redirect('/visor')
+            return res.redirect(path + '/createpassword')
           })
         })
       } else {

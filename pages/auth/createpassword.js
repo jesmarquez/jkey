@@ -34,7 +34,7 @@ export default class extends Page {
       email: '',
       session: this.props.session
     }
-  } 
+  }
 
   render() {
     const muiTheme = getMuiTheme({
@@ -44,7 +44,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
-          <PasswordForm />
+          <PasswordForm csrfToken={this.state.session.csrfToken}/>
         </Layout>
       </MuiThemeProvider>
     )

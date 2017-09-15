@@ -131,10 +131,16 @@ app.prepare()
     return app.render(req, res, '/routing', req.params)
   })
 
+  server.post('/savepassword', (req, res) => {
+    return res.render(req, res, '/visor')
+  })
+
   // Default catch-all handler to allow Next.js to handle all other routes
   server.all('*', (req, res) => {
     return handle(req, res)
   })
+
+
 
   // Set vary header (good practice)
   // Note: This overrides any existing 'Vary' header but is okay in this app
