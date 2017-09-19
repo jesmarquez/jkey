@@ -29,11 +29,48 @@ export default class extends Page {
 
   constructor(props) {
     super(props)
-
     this.state = {
       email: '',
       session: this.props.session
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault()
+    
+    /*
+    console.log(this.state.session)
+    const formData = new FormData()
+    formData.set('username', 'jamarquez')
+    formData.set('password', 'jamarquez')
+    formData.set('_csrf', this.state.session.csrfToken)
+
+    const response = await fetch('/savepassword', {
+        method: 'POST',
+        body: formData
+    });
+    */
+    
+    return new Promise(async (resolve, reject) => {
+      let xhr = new XMLHttpRequest()
+      let email = 'jesmarquez@hotmail.com'
+      xhr.open('POST', '/savepassword', true)
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      xhr.onreadystatechange = async () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status !== 200) {
+            return reject(Error('XMLHttpRequest error: Error while attempting to signin'))
+          }
+
+          return resolve(true)
+        }
+      }
+      xhr.onerror = () => {
+        return reject(Error('XMLHttpRequest error: Unable to signin'))
+      }
+      xhr.send('_csrf=' + encodeURIComponent(this.state.session.csrfToken) + '&' + 'email=' + encodeURIComponent(email))
+    })
   }
 
   render() {
@@ -44,7 +81,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
-          <PasswordForm csrfToken={this.state.session.csrfToken}/>
+          <PasswordForm onSubmit={this.handleSubmit} csrfToken={this.state.session.csrfToken}/>
         </Layout>
       </MuiThemeProvider>
     )
