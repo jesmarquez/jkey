@@ -36,6 +36,9 @@ const Logged = (props) => (
   </IconMenu>
 )
 
+function handleTouchTap() {
+  Router.push('/')  
+}
 
 export default class AppBarMain extends React.Component {
 
@@ -86,6 +89,7 @@ export default class AppBarMain extends React.Component {
       <div>
         <AppBar
           title="JkEy"
+          onTitleTouchTap={handleTouchTap}
           iconElementLeft={<IconButton><NavigationClose /></IconButton>}
           iconElementRight={session.user ? <Logged onChange={this.handleOnChange.bind(this)} /> : <Login />}
         />
