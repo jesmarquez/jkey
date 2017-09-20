@@ -14,7 +14,7 @@ const LoginForm = ({onSubmit}) => (
             avatar="static/users.png"
             actAsExpander={true}
         />
-        <form onSubmit={onSubmit}>
+        <form method="post" action="/auth/login" onSubmit={onSubmit}>
           <div className="field-line">
             <TextField 
               floatingLabelText="username"

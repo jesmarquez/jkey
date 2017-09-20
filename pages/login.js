@@ -70,7 +70,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
-          <LoginForm onSubmit={this.auth}/>
+          <LoginForm />
         </Layout>
       </MuiThemeProvider>
     )

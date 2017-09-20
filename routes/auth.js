@@ -202,6 +202,10 @@ exports.configure = ({
     req.logout()
     res.redirect('/')
   })
+
+  server.post(path + '/login', (req, res) => {
+    res.send('POST login success')
+  })
 }
 
 // @TODO Argument validation
