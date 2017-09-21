@@ -216,17 +216,17 @@ exports.configure = ({
         return res.redirect(path + '/error/email')
       }
       if (user) {
-        // verificar password
-        if (user.passwd == null) {
-          return res.redirect(path + '/createpassword')
-        } else {
           req.logIn(user, function (err) {
             if (err) {
               return res.redirect(path + '/error/email')
             }
-            return res.redirect('/visor')
+            // verificar password
+            if (user.passwd == null) {
+              return res.redirect(path + '/createpassword')
+            } else {
+              return res.redirect('/visor')
+            }
           })
-        }
       } else {
         return res.redirect('/login')
       }
