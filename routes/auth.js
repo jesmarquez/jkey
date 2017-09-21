@@ -204,7 +204,7 @@ exports.configure = ({
   })
 
   server.post(path + '/login', (req, res) => {
-    res.send('POST login success')
+    return res.redirect('/visor')
   })
 }
 
