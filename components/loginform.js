@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Link from 'next/link'
 
-const LoginForm = ({onSubmit}) => (
+const LoginForm = ({csrfToken}) => (
   <div className="container">
     <Card>
       <div className="container">
@@ -14,7 +14,8 @@ const LoginForm = ({onSubmit}) => (
             avatar="static/users.png"
             actAsExpander={true}
         />
-        <form method="post" action="/auth/login" onSubmit={onSubmit}>
+        <form method="post" action="/auth/login">
+          <input name="_csrf" type="hidden" value={csrfToken}/>
           <div className="field-line">
             <TextField 
               floatingLabelText="username"

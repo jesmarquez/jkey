@@ -11,10 +11,6 @@ import Session from '../util/session'
 export default class extends Page {
 
   static async getInitialProps({req}) {
-    // On the sign in page we always force get the latest session data from the
-    // server by passing 'true' to getSession. This page is the destination
-    // page after logging or linking/unlinking accounts so avoids any weird
-    // edge cases.
     const session = new Session({req})
     return {
       session: await session.getSession(true),
@@ -38,7 +34,6 @@ export default class extends Page {
       email: '',
       session: this.props.session
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
   }
 
@@ -49,20 +44,6 @@ export default class extends Page {
     })
   }
 
-  async handleSubmit(event) {
-    event.preventDefault()
-
-    const session = new Session()
-    session.signin(this.state.email)
-    .then(() => {
-      this.props.url.push('/auth/check-email')
-    })
-    .catch(err => {
-      // @FIXME Handle error
-      console.log(err)
-    })
-  }
-
   render() {
     const muiTheme = getMuiTheme({
       userAgent: this.props.userAgent
@@ -70,7 +51,7 @@ export default class extends Page {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
-          <LoginForm />
+          <LoginForm csrfToken={this.state.session.csrfToken}/>
         </Layout>
       </MuiThemeProvider>
     )
