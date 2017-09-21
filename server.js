@@ -82,6 +82,7 @@ app.prepare()
       db.define('user', {
         name: {type: 'text'},
         email: {type: 'text', unique: true},
+        passwd: {type: 'text'},
         token: {type: 'text', unique: true},
         verified: {type: 'boolean', defaultValue: false},
         facebook: {type: 'text'},

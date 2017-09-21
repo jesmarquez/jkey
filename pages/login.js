@@ -26,6 +26,7 @@ export default class extends Page {
       email: this.state.email,
       session: await session.getSession(true)
     }
+    if (this.state.session.user) Router.push('/visor')
   }
 
   constructor(props) {

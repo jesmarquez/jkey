@@ -38,7 +38,6 @@ export default class extends Page {
       session: this.props.session,
     }
     console.log('constructor - visor page')
-
   }
 
   render() {

@@ -204,7 +204,33 @@ exports.configure = ({
   })
 
   server.post(path + '/login', (req, res) => {
-    return res.redirect('/visor')
+    const username = req.body.username
+    const passwd = req.body.password
+
+    console.log(username)
+    console.log(passwd)
+
+    // Look up user by email
+    User.one({email: username}, function (err, user) {
+      if (err) {
+        return res.redirect(path + '/error/email')
+      }
+      if (user) {
+        // verificar password
+        if (user.passwd == null) {
+          return res.redirect(path + '/createpassword')
+        } else {
+          req.logIn(user, function (err) {
+            if (err) {
+              return res.redirect(path + '/error/email')
+            }
+            return res.redirect('/visor')
+          })
+        }
+      } else {
+        return res.redirect('/login')
+      }
+    })
   })
 }
 

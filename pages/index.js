@@ -9,9 +9,7 @@ import Session from '../util/session'
 
 export default class extends Page {
   static async getInitialProps({req}) {
-
     console.log('getInitialProps - index page')
-    console.log(req)
     const session = new Session({req})
 
     return {
