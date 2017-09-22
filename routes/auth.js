@@ -209,24 +209,23 @@ exports.configure = ({
 
     console.log(username)
     console.log(passwd)
-
     // Look up user by email
     User.one({email: username}, function (err, user) {
       if (err) {
         return res.redirect(path + '/error/email')
       }
       if (user) {
+        if(passwd == user.passwd) {
           req.logIn(user, function (err) {
             if (err) {
               return res.redirect(path + '/error/email')
             }
-            // verificar password
-            if (user.passwd == null) {
-              return res.redirect(path + '/createpassword')
-            } else {
-              return res.redirect('/visor')
-            }
+            return res.redirect('/visor')
           })
+        } else {
+          console.log('usuario no registrado')
+          return res.redirect('/login')
+        }
       } else {
         return res.redirect('/login')
       }
