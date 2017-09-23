@@ -130,6 +130,7 @@ exports.configure = ({
       }
       if (user) {
         user.token = token
+        user.passwd = 'cambiame'
         user.save(function (err) {
           if (err) {
             throw err
@@ -176,6 +177,7 @@ exports.configure = ({
         // Reset token and mark as verified
         user.token = null
         user.verified = true
+        user.passwd = 'cambiame'
         user.save(function (err) {
           // @TODO Improve error handling
           if (err) {
@@ -223,7 +225,7 @@ exports.configure = ({
             return res.redirect('/visor')
           })
         } else {
-          console.log('usuario no registrado')
+          console.log('usuario no registrado o passwd incorrecto')
           return res.redirect('/login')
         }
       } else {
