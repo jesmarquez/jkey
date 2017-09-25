@@ -31,7 +31,7 @@ export default class extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <script src="https://cdn.polyfill.io/v2/polyfill.min.js"/>
           <link rel="shortcut icon" href="/static/favicon.png" type="image/png" />
-          <title>MeoKey</title>
+          <title>JkEy</title>
           {stylesheet}
         </Head>
       </header>
