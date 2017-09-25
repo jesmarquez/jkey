@@ -217,18 +217,24 @@ exports.configure = ({
         return res.redirect(path + '/error/email')
       }
       if (user) {
+        console.log(user)
         if(passwd == user.passwd) {
           req.logIn(user, function (err) {
             if (err) {
               return res.redirect(path + '/error/email')
             }
+            console.log('Login success!')
             return res.redirect('/visor')
+            //return app.render(req, res, '/visor')
+            //return res.redirect('/visor')
           })
         } else {
-          console.log('usuario no registrado o passwd incorrecto')
+          console.log('passwd incorrecto')
+          console.log(user.passwd)
           return res.redirect('/login')
         }
       } else {
+        console.log('usuario no registrado')
         return res.redirect('/login')
       }
     })

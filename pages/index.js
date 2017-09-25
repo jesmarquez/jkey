@@ -6,6 +6,7 @@ import Page from '../components/page'
 import Layout from '../components/layout'
 import CarHome from '../components/cardhome'
 import Session from '../util/session'
+import Router from 'next/router'
 
 export default class extends Page {
   static async getInitialProps({req}) {
@@ -35,7 +36,7 @@ export default class extends Page {
     this.state = {
       session: await session.getSession(true)
     }
-    console.log(this.state.session)
+    if (this.state.session.user) Router.push('/visor')
   }
 
   render() {
