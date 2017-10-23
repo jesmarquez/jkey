@@ -224,18 +224,20 @@ exports.configure = ({
               return res.redirect(path + '/error/email')
             }
             console.log('Login success!')
-            return res.redirect('/visor')
-            //return app.render(req, res, '/visor')
+            return res.status(200).send('Ok')
             //return res.redirect('/visor')
+            //return app.render(req, res, '/visor')
           })
         } else {
           console.log('passwd incorrecto')
           console.log(user.passwd)
-          return res.redirect('/login')
+          return res.status(401).send('Fail')
+          //return res.redirect('/login')
         }
       } else {
         console.log('usuario no registrado')
-        return res.redirect('/login')
+        return res.status(401).send('Fail')
+        //return res.redirect('/login')
       }
     })
   })

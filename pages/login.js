@@ -7,6 +7,33 @@ import Layout from '../components/layout'
 import LoginForm from '../components/loginform'
 import Router from 'next/router'
 import Session from '../util/session'
+import Paper from 'material-ui/Paper'
+
+const style = {
+  height: 50,
+  marginBottom: 20,
+  padding: 10,
+  textAlign: 'center',
+  display: 'block',
+  opacity: 0.8
+}
+
+class Msgbox extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      msg: this.props.msg
+    }
+  }
+
+  render() {
+    return (
+      <div className="container-msg">
+        {this.props.msg}
+      </div>
+    )
+  }
+}
 
 export default class extends Page {
 
@@ -24,6 +51,7 @@ export default class extends Page {
     const session = new Session()
     this.state = {
       email: this.state.email,
+      password: this.state.password,
       session: await session.getSession(true)
     }
     if (this.state.session.user) Router.push('/visor')
@@ -33,15 +61,43 @@ export default class extends Page {
     super(props)
     this.state = {
       email: '',
-      session: this.props.session
+      password: '',
+      session: this.props.session,
+      error: 'Ok',
+      errorMsg: 'Ok'
     }
-    this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.handleUsernameChange = this.handleUsernameChange.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleEmailChange(event) {
+  handleUsernameChange(event) {
     this.setState({
-      email: event.target.value.trim(),
-      session: this.state.session
+      email: event.target.value.trim()
+      //session: this.state.session
+    })
+  }
+
+  handlePasswordChange(event) {
+    this.setState({
+      password: event.target.value.trim()
+    })
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault()
+
+    const session = new Session()
+    session.login(this.state.email, this.state.password)
+    .then(() => {
+      Router.push('/visor')
+    })
+    .catch(err => {
+      // @FIXME Handle error
+      this.setState({
+        error: 'Err',
+        errorMsg: 'Invalid username or password'
+      })
     })
   }
 
@@ -49,10 +105,19 @@ export default class extends Page {
     const muiTheme = getMuiTheme({
       userAgent: this.props.userAgent
     })
+
+    var paper
+    paper = <Paper style={style} zDepth={1} children={<Msgbox msg={this.state.errorMsg}/>}/> 
+
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
-          <LoginForm csrfToken={this.state.session.csrfToken}/>
+          {paper}
+          <LoginForm
+            csrfToken={this.state.session.csrfToken}
+            onChangeUsername={this.handleUsernameChange}
+            onChangePassword={this.handlePasswordChange}
+            onSubmit={this.handleSubmit}/>
         </Layout>
       </MuiThemeProvider>
     )
