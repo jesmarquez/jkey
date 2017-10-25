@@ -9,13 +9,22 @@ import Router from 'next/router'
 import Session from '../util/session'
 import Paper from 'material-ui/Paper'
 
-const style = {
+const styleOff = {
   height: 50,
   marginBottom: 20,
   padding: 10,
   textAlign: 'center',
   display: 'block',
-  opacity: 0.8
+  opacity: 0
+}
+
+const styleOn = {
+  height: 50,
+  marginBottom: 20,
+  padding: 10,
+  textAlign: 'center',
+  display: 'block',
+  opacity: 1
 }
 
 class Msgbox extends React.Component {
@@ -102,8 +111,8 @@ export default class extends Page {
     })
 
     var paper
-    paper = <Paper style={style} zDepth={1} children={<Msgbox msg={this.state.errorMsg}/>}/> 
-
+    // (this.state.error == 'Ok') ? paper = <div/> : paper = <Paper style={style} zDepth={1} children={<Msgbox msg={this.state.errorMsg}/>}/> 
+    paper = <Paper style={(this.state.error == 'Ok') ? styleOff : styleOn} zDepth={1} children={<Msgbox msg={this.state.errorMsg}/>}/>
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <Layout session={this.state.session}>
