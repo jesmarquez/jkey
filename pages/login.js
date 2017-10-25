@@ -19,13 +19,6 @@ const style = {
 }
 
 class Msgbox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      msg: this.props.msg
-    }
-  }
-
   render() {
     return (
       <div className="container-msg">
@@ -52,7 +45,9 @@ export default class extends Page {
     this.state = {
       email: this.state.email,
       password: this.state.password,
-      session: await session.getSession(true)
+      session: await session.getSession(true),
+      error: 'Ok',
+      errorMsg: 'Ok'
     }
     if (this.state.session.user) Router.push('/visor')
   }
