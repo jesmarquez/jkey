@@ -82,6 +82,7 @@ app.prepare()
       db.define('user', {
         name: {type: 'text'},
         email: {type: 'text', unique: true},
+        passwd: {type: 'text'},
         token: {type: 'text', unique: true},
         verified: {type: 'boolean', defaultValue: false},
         facebook: {type: 'text'},
@@ -131,6 +132,12 @@ app.prepare()
     return app.render(req, res, '/routing', req.params)
   })
 
+  server.post('/auth/savepassword', (req, res) => {
+    // res.send('POST request to the signup')
+    console.log('/savepassword')
+    return res.redirect('/visor')
+  })
+
   // Default catch-all handler to allow Next.js to handle all other routes
   server.all('*', (req, res) => {
     return handle(req, res)
@@ -152,6 +159,7 @@ app.prepare()
     console.log('EMAIL_PORT:' + process.env.EMAIL_PORT)
     console.log('EMAIL_USERNAME:' + process.env.EMAIL_USERNAME)
     console.log('EMAIL_PASSWORD:' + process.env.EMAIL_PASSWORD)
+    console.log('DB_CONNECTION_STRING:' + process.env.DB_CONNECTION_STRING)
   })
 })
 .catch(err => {

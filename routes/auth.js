@@ -130,6 +130,7 @@ exports.configure = ({
       }
       if (user) {
         user.token = token
+        user.passwd = 'cambiame'
         user.save(function (err) {
           if (err) {
             throw err
@@ -158,9 +159,8 @@ exports.configure = ({
       }
     })
     const queryParams = { link: verificationUrl }
-    //return app.render(req, res, pages + '/check-email', queryParams)
-    console.log(verificationUrl)
-    res.send('POST request to the signup')
+    return app.render(req, res, pages + '/check-email', req.params)
+    //res.send('POST request to the signup')
   })
 
   server.get(path + '/email/signin/:token', (req, res) => {
@@ -177,17 +177,19 @@ exports.configure = ({
         // Reset token and mark as verified
         user.token = null
         user.verified = true
+        user.passwd = 'cambiame'
         user.save(function (err) {
           // @TODO Improve error handling
           if (err) {
             return res.redirect(path + '/error/email')
           }
           // Having validated to the token, we log the user with Passport
+          console.log(user)
           req.logIn(user, function (err) {
             if (err) {
               return res.redirect(path + '/error/email')
             }
-            return res.redirect('/visor')
+            return res.redirect(path + '/createpassword')
           })
         })
       } else {
@@ -198,8 +200,46 @@ exports.configure = ({
 
   server.post(path + '/signout', (req, res) => {
     // Log user out by disassociating their account from the session
+    console.log('signout!')
     req.logout()
     res.redirect('/')
+  })
+
+  server.post(path + '/login', (req, res) => {
+    const username = req.body.username
+    const passwd = req.body.password
+
+    console.log(username)
+    console.log(passwd)
+    // Look up user by email
+    User.one({email: username}, function (err, user) {
+      if (err) {
+        return res.redirect(path + '/error/email')
+      }
+      if (user) {
+        console.log(user)
+        if(passwd == user.passwd) {
+          req.logIn(user, function (err) {
+            if (err) {
+              return res.redirect(path + '/error/email')
+            }
+            console.log('Login success!')
+            return res.status(200).send('Ok')
+            //return res.redirect('/visor')
+            //return app.render(req, res, '/visor')
+          })
+        } else {
+          console.log('passwd incorrecto')
+          console.log(user.passwd)
+          return res.status(401).send('Fail')
+          //return res.redirect('/login')
+        }
+      } else {
+        console.log('usuario no registrado')
+        return res.status(401).send('Fail')
+        //return res.redirect('/login')
+      }
+    })
   })
 }
 

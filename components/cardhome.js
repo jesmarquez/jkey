@@ -22,6 +22,6 @@ const CardHome = () => (
       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
     </CardText>
   </Card>
-);
+)
 
 export default CardHome

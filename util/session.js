@@ -153,6 +153,39 @@ export default class Session {
     })
   }
 
+  async login(username, password) {
+    // Sign in to the server
+    return new Promise(async (resolve, reject) => {
+      if (typeof window === 'undefined') {
+        return reject(Error('This method should only be called on the client'))
+      }
+
+      // Make sure we have session in memory
+      this._session = await this.getSession()
+
+      // Make sure we have the latest CSRF Token in our session
+      this._session.csrfToken = await Session.getCsrfToken()
+
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', '/auth/login', true)
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      xhr.onreadystatechange = async () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status !== 200) {
+            return reject(Error('XMLHttpRequest error: Error while attempting to signin'))
+          }
+
+          return resolve(true)
+        }
+      }
+      xhr.onerror = () => {
+        return reject(Error('XMLHttpRequest error: Unable to signin'))
+      }
+      xhr.send('_csrf=' + encodeURIComponent(this._session.csrfToken) + '&' +
+                'username=' + encodeURIComponent(username) + '&' + 'password=' + encodeURIComponent(password))
+    })
+  }
+
   async signout() {
     // Signout from the server
     return new Promise(async (resolve, reject) => {

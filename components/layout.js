@@ -4,6 +4,11 @@ import Header from './header'
 
 export default class extends React.Component {
 
+  constructor(props) {
+    super(props)
+    
+  }
+
   static propTypes() {
     return {
       session: React.PropTypes.object.isRequired,
@@ -15,7 +20,7 @@ export default class extends React.Component {
     return (
       <div>
         <Header />
-        <AppBarMain />
+        <AppBarMain session={this.props.session}/>
         <div className="container">
           {this.props.children}
         </div>
