@@ -26,6 +26,8 @@ test/**/out
 # Project files
 *.sublime-project
 
-
 # Next
 .next/
+
+# Tmp file
+tmp/
